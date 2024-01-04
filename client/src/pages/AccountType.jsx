@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import homeImage from '../assets/image1.jpg';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 export default function AccountType() {
     const [data, setData] = useState([]);
@@ -27,9 +28,9 @@ export default function AccountType() {
                             <h5 className="card-title">{element.accountType}</h5>
                             <p className="card-text">{`Interest Rate: ${element.interestRate}%`}</p>
                             <p className="card-text">{`Loan Limit: Rs.${element.loanLimit}`}</p>
-                            <a href="/" className="btn btn-primary">
+                            <Link to={`http://localhost:5173/account/create/${element._id}`} className="btn btn-primary decoration-none">
                                 Create Account
-                            </a>
+                            </Link>
                         </div>
                     </div>
                 ))}

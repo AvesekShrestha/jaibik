@@ -10,6 +10,7 @@ import Profile from './pages/Profile'
 import ProvideLoan from './pages/ProvideLoan'
 import ReceiveLoan from './pages/ReceiveLoan'
 import AccountType from './pages/AccountType'
+import CreateAccount from './pages/CreateAccount'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path='/loan/provide' element={<ProvideLoan />} />
         <Route path='/loan/receive' element={<ReceiveLoan />} />
         <Route path='/type' element={<AccountType />} />
+        <Route path='/account/create/:_id' element={<CreateAccount />} />
 
 
       </Routes>

@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import * as XLSX from 'xlsx';
 import { useParams } from 'react-router-dom';
+import { AiOutlineDownload } from 'react-icons/ai'
 
 export default function Profile() {
   const { accountHolder } = useParams();
@@ -19,6 +21,13 @@ export default function Profile() {
     };
     fetchData();
   }, [accountHolder]);
+
+  const downloadExcel = (sectionData, sectionName) => {
+    const ws = XLSX.utils.json_to_sheet(sectionData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, `${sectionName} Data`);
+    XLSX.writeFile(wb, `${sectionName}_Data.xlsx`);
+  };
 
   return (
     <div className="container" style={{ minHeight: 'calc(100vh - 260px)' }}>
@@ -48,7 +57,10 @@ export default function Profile() {
           {/* Deposit section */}
           {data.deposit && data.deposit.length > 0 ? (
             <div className="w-50 p-3">
-              <h4 className="card-title text-center">Deposit</h4>
+              <div className='d-flex justify-content-around align-items-center flex-row'>
+                <h4 className="card-title text-center">Deposit</h4>
+                <AiOutlineDownload size={25} onClick={() => downloadExcel(data.deposit, 'Deposit')} style={{ cursor: "pointer" }}></AiOutlineDownload>
+              </div>
               <div className="table-responsive">
                 <table className="table table-bordered">
                   <thead>
@@ -82,7 +94,10 @@ export default function Profile() {
           {/* Withdraw section */}
           {data.withdraw && data.withdraw.length > 0 ? (
             <div className="w-50 p-3">
-              <h4 className="card-title text-center">Withdraw</h4>
+              <div className='d-flex flex-row justify-content-around align-items-center'>
+                <h4 className="card-title text-center">Withdraw</h4>
+                <AiOutlineDownload style={{ cursor: "pointer" }} size={25} onClick={() => downloadExcel(data.withdraw, 'Withdraw')}>Download Withdraw</AiOutlineDownload>
+              </div>
               <div className="table-responsive">
                 <table className="table table-bordered">
                   <thead>
@@ -115,7 +130,6 @@ export default function Profile() {
         </div>
       </div>
 
-
       {/* Loan details section  */}
       <h3 className="text-center">Loan Details</h3>
       <div className="card mb-5" style={{ maxHeight: '400px', overflowY: 'auto' }}>
@@ -123,7 +137,10 @@ export default function Profile() {
           {/* Loan provided section */}
           {data.loanRecord && data.loanRecord.length > 0 ? (
             <div className="w-50 p-3">
-              <h4 className="card-title text-center">Loan Provided</h4>
+              <div className="d-flex align-items-center justify-content-around flex-row">
+                <h4 className="card-title text-center">Loan Provided</h4>
+                <AiOutlineDownload style={{ cursor: "pointer" }} size={25} onClick={() => downloadExcel(data.loanRecord, 'LoanProvided')}>Download Loan Provided</AiOutlineDownload>
+              </div>
               <div className="table-responsive">
                 <table className="table table-bordered">
                   <thead>
@@ -149,7 +166,7 @@ export default function Profile() {
             </div>
           ) : (
             <div className="w-50 p-3">
-              <h4 className="card-title">Loan Received</h4>
+              <h4 className="card-title">Loan Provided</h4>
               <p>No loan provided transactions</p>
             </div>
           )}
@@ -157,7 +174,11 @@ export default function Profile() {
           {/* loan received section */}
           {data.loanReceive && data.loanReceive.length > 0 ? (
             <div className="w-50 p-3">
-              <h4 className="card-title text-center">Loan Received</h4>
+              <div className="d-flex align-items-center justify-content-around flex-row">
+                <h4 className="card-title text-center">Loan Received</h4>
+                <AiOutlineDownload size={25} style={{ cursor: "pointer" }} onClick={() => downloadExcel(data.loanReceive, 'LoanReceived')}>Download Loan Received</AiOutlineDownload>
+
+              </div>
               <div className="table-responsive">
                 <table className="table table-bordered">
                   <thead>
@@ -189,7 +210,6 @@ export default function Profile() {
           )}
         </div>
       </div>
-
     </div>
   );
 }
