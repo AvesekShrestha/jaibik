@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 export default function CreateAccount() {
     const _id = useParams();
-
+    const [data, setData] = useState({})
     return (
         <>
             <div style={{ minHeight: "calc(100vh - 260px)" }}>
