@@ -26,6 +26,7 @@ export default function Navbar() {
                             <ul className="dropdown-menu">
                                 <li><Link to="/deposit" className="dropdown-item">Deposit</Link></li>
                                 <li><Link to="/withdraw" className="dropdown-item">Withdraw</Link></li>
+                                <li><Link to="/overall" className="dropdown-item">Overall</Link></li>
                             </ul>
                         </li>
                         <li className={`nav-item dropdown ${location.pathname.startsWith('/loan') ? 'active' : ''}`}>

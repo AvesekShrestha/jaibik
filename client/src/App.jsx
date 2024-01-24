@@ -11,6 +11,7 @@ import ProvideLoan from './pages/ProvideLoan'
 import ReceiveLoan from './pages/ReceiveLoan'
 import AccountType from './pages/AccountType'
 import CreateAccount from './pages/CreateAccount'
+import Transaction from './pages/Transaction'
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path='/loan/receive' element={<ReceiveLoan />} />
         <Route path='/type' element={<AccountType />} />
         <Route path='/account/create/:_id' element={<CreateAccount />} />
+        <Route path='/overall' element={<Transaction />} />
 
 
       </Routes>

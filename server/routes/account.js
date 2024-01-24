@@ -113,4 +113,34 @@ router.get("/user/details/:accountHolder", async (req, res) => {
     }
 })
 
+
+
+router.get("/transaction/details/:accountNumber", async (req, res) => {
+    try {
+        const accountNumber = req.params.accountNumber
+        const account = await Account.findOne({ accountNumber })
+        const accountHolder = account._id;
+        const accountType = await AccountType.findOne({ _id: account.accountType })
+        const balance = await Balance.findOne({ accountHolder })
+        const loan = await Loan.findOne({ accountHolder })
+        const loanRecord = await LoanRecord.find({ accountHolder })
+        const deposit = await Deposite.find({ accountHolder })
+        const withdraw = await Withdraw.find({ accountHolder })
+        // const share = await Share.find()
+        const loanReceive = await LoanRecived.find({ accountHolder })
+
+
+        if (!loan && loanRecord) return res.status(404).json({ message: "No loan" })
+        if (!deposit) return res.status(200).json({ account, accountType, balance, loan, loanRecord, deposit: [], withdraw, loanReceive })
+        if (!withdraw) return res.status(200).json({ account, accountType, balance, loan, loanRecord, deposit, withdraw: [], loanReceive })
+        if (!loanReceive) return res.status(200).json({ account, accountType, balance, loan, loanRecord, deposit, withdraw, loanReceive: [] })
+
+
+        res.status(200).json({ account, accountType, balance, loan, loanRecord, deposit, withdraw, loanReceive })
+
+    } catch (error) {
+        return res.status(500).json({ message: "Error occured" })
+    }
+})
+
 module.exports = router;

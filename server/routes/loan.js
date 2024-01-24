@@ -29,7 +29,7 @@ router.post("/provide", async (req, res) => {
                 {
                     $inc: {
                         amount: amount,
-                        totalAmount: amount + loan.interestAmount,
+                        totalAmount: amount,
                     },
                 },
                 { new: true }
@@ -132,7 +132,7 @@ router.get("/recive/record/:number", async (req, res) => {
     }
 })
 
-cron.schedule("1 * * * *", async () => {
+cron.schedule("0 0 1 * *", async () => {
     try {
         const loans = await Loan.find({})
         if (loans.length === 0) {
